@@ -118,6 +118,7 @@
         </tfoot>
       </table>
     </div>
+    <Taux v-model="taux" />
   </div>
 </template>
 
@@ -130,16 +131,15 @@ import { PhaseObject, TauxObject } from '../types'
 import Phase from './Phase.vue'
 import Consultants from './Consultant.vue'
 import Frais from './Frais.vue'
+import Taux from '@/components/Taux.vue'
 import MargesDetails from './MargesDetails.vue'
 import { round, utf8ToB64, b64ToUtf8 } from '../utils'
 
 @Component({
-  components: { Phase, DistributionChart, Consultants, MargesDetails, Frais }
+  components: { Phase, DistributionChart, Consultants, MargesDetails, Frais, Taux }
 })
 export default class JehMaker extends Vue {
-  @Prop() taux!: TauxObject;
-
-  // Data
+  taux:TauxObject = new TauxObject()
   phases: PhaseObject[] = []
   totalPrice:number = 0
   averageJeh:number = 0
@@ -283,7 +283,6 @@ export default class JehMaker extends Vue {
   }
 
   exportUrl () {
-    let json = { fee: this.fee, phases: this.phases }
     this.$router.push({ name: 'phases', params: { phases: utf8ToB64(JSON.stringify(json)) } })
     this.url = window.location.href
     this.$copyText(this.url)
