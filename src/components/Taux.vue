@@ -15,7 +15,7 @@
           <tbody>
               <tr v-for="label in Object.keys(content)" v-bind:key="label">
                   <td>{{label}}</td>
-                  <td><sui-input class="w-100"  v-model="content[label]" @input="handleInput" type="text"/></td>
+                  <td><sui-input class="w-100"  v-model="content[label]" @input="handleInput" type="number"/></td>
               </tr>
 
           </tbody>

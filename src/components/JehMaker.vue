@@ -283,6 +283,7 @@ export default class JehMaker extends Vue {
   }
 
   exportUrl () {
+    let json = { fee: this.fee, phases: this.phases, taux: this.taux }
     this.$router.push({ name: 'phases', params: { phases: utf8ToB64(JSON.stringify(json)) } })
     this.url = window.location.href
     this.$copyText(this.url)
@@ -297,12 +298,14 @@ export default class JehMaker extends Vue {
     let jsonImported = JSON.parse(b64ToUtf8(b64))
     this.fee = jsonImported.fee
     this.phases = jsonImported.phases
+    this.taux = jsonImported.taux
   }
 
   importUrl () {
     let urlSplit = this.urlImport.split('/')
     if (urlSplit.length > 2 && urlSplit[urlSplit.length - 2] === 'p') {
       this.importFromB64(urlSplit[urlSplit.length - 1])
+      this.calculate()
     }
   }
 }
